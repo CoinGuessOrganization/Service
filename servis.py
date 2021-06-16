@@ -1,15 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 16 14:31:35 2021
 
-@author: Fatih
-"""
-
-from flask import Flask, render_template, request, url_for, jsonify,Response
+from flask import Flask
 import json
 import numpy as np
 import pandas as pd
-import csv
 
 app = Flask(__name__)
 
@@ -20,30 +13,21 @@ wsgi_app = app.wsgi_app
 @app.route('/')
 def hello():
     """Renders a sample page."""
-    return "Selam dünyalı"
-
-@app.route('/flaskweb/api/books', methods=['GET'])
-def get_books():
-
-    return "hi arda"
-
-
-
+    return "Hello CoinGuess"
 
 @app.route('/flaskweb/api/BTC', methods=['GET'])
 def get_BTC():
     from tensorflow import keras
-    df1 =  pd.read_csv('BTC/test_dataset1.csv')
+    df1 =  pd.read_csv('BTC/test_dataset.csv')
     model = keras.models.load_model('BTC/model')
     look_back = 20
     
 
-    df2 =  pd.read_csv('BTC/test_dataset1.csv')
+    df2 =  pd.read_csv('BTC/test_dataset.csv')
     df2.drop(columns=['24h Open (USD)', '24h High (USD)', '24h Low (USD)'], inplace=True)
     dates = df2['Date']
     dates = dates.tolist()
 
-    import datetime
     from datetime import date, timedelta
     
     today = date.today()
@@ -70,14 +54,14 @@ def get_BTC():
             print(i["price_close"])
             fields = ["BTC",i["time_period_start"].split("T")[0],i["price_close"]," "," "," "]
 
-            with open('BTC/test_dataset1.csv', 'a+', newline='') as write_obj:
+            with open('BTC/test_dataset.csv', 'a+', newline='') as write_obj:
                 # Create a writer object from csv module
                 csv_writer = writer(write_obj)
                 # Add contents of list as last row in the csv file
                 csv_writer.writerow(fields)
           
-        df1 =  pd.read_csv('BTC/test_dataset1.csv')
-        df2 =  pd.read_csv('BTC/test_dataset1.csv')
+        df1 =  pd.read_csv('BTC/test_dataset.csv')
+        df2 =  pd.read_csv('BTC/test_dataset.csv')
         df2.drop(columns=['24h Open (USD)', '24h High (USD)', '24h Low (USD)'], inplace=True)
         dates = df2['Date']
         dates = dates.tolist()
@@ -124,17 +108,16 @@ def get_BTC():
 @app.route('/flaskweb/api/ETH', methods=['GET'])
 def get_ETH():
     from tensorflow import keras
-    df1 =  pd.read_csv('ETH/test_dataset1.csv')
+    df1 =  pd.read_csv('ETH/test_dataset.csv')
     model = keras.models.load_model('ETH/model')
     look_back = 20
     
-    df2 =  pd.read_csv('ETH/test_dataset1.csv')
+    df2 =  pd.read_csv('ETH/test_dataset.csv')
     df2.drop(columns=['24h Open (USD)', '24h High (USD)', '24h Low (USD)'], inplace=True)
     dates = df2['Date']
     dates = dates.tolist()
 
 
-    import datetime
     from datetime import date, timedelta
     
     today = date.today()
@@ -161,14 +144,14 @@ def get_ETH():
             print(i["price_close"])
             fields = ["ETH",i["time_period_start"].split("T")[0],i["price_close"]," "," "," "]
 
-            with open('ETH/test_dataset1.csv', 'a+', newline='') as write_obj:
+            with open('ETH/test_dataset.csv', 'a+', newline='') as write_obj:
                 # Create a writer object from csv module
                 csv_writer = writer(write_obj)
                 # Add contents of list as last row in the csv file
                 csv_writer.writerow(fields)
           
-        df1 =  pd.read_csv('ETH/test_dataset1.csv')
-        df2 =  pd.read_csv('ETH/test_dataset1.csv')
+        df1 =  pd.read_csv('ETH/test_dataset.csv')
+        df2 =  pd.read_csv('ETH/test_dataset.csv')
         df2.drop(columns=['24h Open (USD)', '24h High (USD)', '24h Low (USD)'], inplace=True)
         dates = df2['Date']
         dates = dates.tolist()
@@ -213,16 +196,15 @@ def get_ETH():
 @app.route('/flaskweb/api/XRP', methods=['GET'])
 def get_XRP():
     from tensorflow import keras
-    df1 =  pd.read_csv('XRP/test_dataset1.csv')
+    df1 =  pd.read_csv('XRP/test_dataset.csv')
     model = keras.models.load_model('XRP/model')
     look_back = 20
     
-    df2 =  pd.read_csv('XRP/test_dataset1.csv')
+    df2 =  pd.read_csv('XRP/test_dataset.csv')
     df2.drop(columns=['24h Open (USD)', '24h High (USD)', '24h Low (USD)'], inplace=True)
     dates = df2['Date']
     dates = dates.tolist()
 
-    import datetime
     from datetime import date, timedelta
     
     today = date.today()
@@ -249,17 +231,17 @@ def get_XRP():
             print(i["price_close"])
             fields = ["XRP",i["time_period_start"].split("T")[0],i["price_close"],"0","0","0"]
 
-            with open('XRP/test_dataset1.csv', 'a+', newline='') as write_obj:
+            with open('XRP/test_dataset.csv', 'a+', newline='') as write_obj:
                 # Create a writer object from csv module
                 csv_writer = writer(write_obj)
                 # Add contents of list as last row in the csv file
                 csv_writer.writerow(fields)
                 
-        df2 =  pd.read_csv('XRP/test_dataset1.csv')
+        df2 =  pd.read_csv('XRP/test_dataset.csv')
         df2.drop(columns=['24h Open (USD)', '24h High (USD)', '24h Low (USD)'], inplace=True)
         dates = df2['Date']
         dates = dates.tolist()
-        df1 =  pd.read_csv('XRP/test_dataset1.csv')
+        df1 =  pd.read_csv('XRP/test_dataset.csv')
         
    
     df1['Date'] = pd.to_datetime(df1['Date'])
